@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { FormsData, InteractiveCompData, NonInteractiveCompData, SidebarLinksData, HooksData } from '../data/SidebarLinksData'
 import { Accordion, Badge, Button, Col, Container, ListGroup, Row, Stack } from 'react-bootstrap'
 import { ArrowRight, Moon, Sun } from 'react-bootstrap-icons'
 import ScrollToTop from '../components/ScrollToTop'
+import { getAllCategories } from '../api/Services'
+import { UserContext } from '../context/Context'
 
 const RootLayout = () => {
     const navigate = useNavigate()
@@ -13,46 +15,48 @@ const RootLayout = () => {
         const htmlElement = document.querySelector("html")
         htmlElement.setAttribute('data-bs-theme', darkMode ? "dark" : 'light')
     }, [darkMode])
-
-
     //  useEffect it will be executed on comp. load
     //  it will be executed everytime when give var./state is changed
-
-
     const handleLogout = () => {
         localStorage.setItem("login", false)
         navigate("/auth/signin")
     }
+
+
+
+    const [categories, setCategories] = useState()
+    const [error, setError] = useState()
+    const [loading, setLoading] = useState(false)
+    const fetchCategories = async () => {
+        try {
+            const response = await getAllCategories()
+            setCategories(response.data)
+        } catch (error) {
+            if (error.response.status === 404) {
+                setError("Invalid URL or endpoint not found")
+            } else {
+                setError(error.message)
+            }
+        } finally {
+            setTimeout(() => {
+                setLoading(false)
+            }, 1000)
+        }
+    }
+    useEffect(() => {
+        setLoading(true)
+        fetchCategories();
+    }, [])
+
+    const { username, setUsername } = useContext(UserContext)
     return (
         <Container fluid >
-
-            {/* <Container className='bg-info'>
-                <Row>
-                    <Col>
-                        This is a Col created using React bootstrap comp.
-                    </Col>
-                </Row>
-            </Container> */}
-
-
-            {/* <div className="hstack gap-3">
-                <div className="p-2">First item</div>
-                <div className="p-2">Second item</div>
-                <div className="p-2">Third item</div>
-            </div>
-
-
-            <Stack gap={1} direction='horizontal'  >
-                <Button className="p-2">First item</Button>
-                <Badge className="p-2">Second item</Badge>
-                <Button className="p-2">Third item</Button>
-            </Stack> */}
-
-
             <Container>
                 <Row md={4} className='pt-3'>
                     <Col md={4}><h4>React Bootstrap</h4> </Col>
                     <Col md={8} className='text-end'>
+                        Welcome {username} {' '}
+                        <NavLink to="/profile">Profile</NavLink>{' '}
                         <Badge onClick={() => setDarkMode(!darkMode)} className='rounded-5 p-2' role='button'>
                             {darkMode ? <Moon /> : <Sun />}
                         </Badge>
@@ -63,7 +67,24 @@ const RootLayout = () => {
                         <div className="card vh-100">
                             <div className="card-body">
 
-                                <Accordion defaultActiveKey="0">
+                                <Accordion defaultActiveKey="5">
+                                    <Accordion.Item eventKey="5">
+                                        <Accordion.Header>Categories</Accordion.Header>
+                                        <Accordion.Body>
+                                            {/* <pre> {JSON.stringify(categories, null, 2)} </pre> */}
+                                            <ListGroup>
+                                                {categories?.map((category) => {
+                                                    return (
+                                                        <ListGroup.Item key={category.slug}>
+                                                            <ArrowRight />{' '}
+                                                            <NavLink to={"/products/" + category.slug} >{category.name}</NavLink>
+                                                        </ListGroup.Item>
+                                                    )
+                                                })}
+                                            </ListGroup>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+
                                     <Accordion.Item eventKey="0">
                                         <Accordion.Header>Assignments</Accordion.Header>
                                         <Accordion.Body>
@@ -153,6 +174,7 @@ const RootLayout = () => {
 
 
                                 <hr />
+
                                 <Button onClick={handleLogout} variant='link' >Logout</Button><br />
                             </div>
                         </div>

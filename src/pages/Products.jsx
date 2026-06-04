@@ -1,18 +1,27 @@
 import axios from 'axios'
 import React, { Fragment, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Row, Spinner } from 'react-bootstrap'
+import { api, getAllProducts, getProductsByCategory } from '../api/Services'
+import { useLocation, useParams } from 'react-router-dom'
 
 const Products = () => {
+    const param = useParams()
+    const location = useLocation()
     const [products, setProducts] = useState()
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
 
     const getProducts = async () => {
         try {
-            const response = await axios.get('https://dummyjson.com/products1')
+            //const response = await getAllProducts()
+            const response = await getProductsByCategory(param.category)
             setProducts(response.data.products)
         } catch (error) {
-            setError(error)
+            if (error.response.status === 404) {
+                setError("Invalid URL or endpoint not found")
+            } else {
+                setError(error.message)
+            }
         } finally {
             setTimeout(() => {
                 setLoading(false)
@@ -31,11 +40,10 @@ const Products = () => {
         //             setLoading(false)
         //         }, 1000)
         //     );
-    }, [])
+    }, [location.pathname])
     return (
         <div><h3>Products</h3><br />
-
-            {/* <pre> {JSON.stringify(products, null, 2)} </pre> */}
+            {/* <pre> {JSON.stringify(location, null, 2)} </pre> */}
             <Container>
                 <Row>
                     {loading ?

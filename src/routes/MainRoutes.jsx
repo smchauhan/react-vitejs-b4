@@ -38,6 +38,7 @@ import ReactMemoAndUseCallback from "../pages/hooks/ReactMemoAndUseCallback"
 import UseMemoHook from "../pages/hooks/UseMemoHook"
 import UseCounterHook from "../pages/hooks/UseCounterHook"
 import Products from "../pages/Products"
+import Profile from "../pages/profile/Profile"
 
 export const router = createBrowserRouter(
     [
@@ -100,9 +101,9 @@ export const router = createBrowserRouter(
                 { path: "/usememo-hook", element: <UseMemoHook /> },
                 { path: "/usecounter-hook", element: <UseCounterHook /> },
 
-                { path: "/products", element: <Products /> },
+                { path: "/products/:category", element: <Products /> },
 
-
+                { path: "/profile", element: <Profile /> },
 
             ]
         },
