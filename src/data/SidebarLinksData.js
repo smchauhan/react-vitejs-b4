@@ -13,6 +13,8 @@ export const SidebarLinksData = [
 
   { id: uuid(), link: "/blog", menuName: "Blog" },
   { id: uuid(), link: "/blog/blog-detail", menuName: "Blog Detail" },
+
+  { id: uuid(), link: "/products", menuName: "Products" },
 ];
 
 export const NonInteractiveCompData = [
@@ -38,4 +40,21 @@ export const FormsData = [
   { id: uuid(), link: "/rb-formik-validation", menuName: "Formik Validation" },
   { id: uuid(), link: "/rhf-basic", menuName: "RHF Basic " },
   { id: uuid(), link: "/rhf-yup", menuName: "RHF Yup " },
+];
+
+export const HooksData = [
+  { id: uuid(), link: "/useefect-hook", menuName: "useEffect()" },
+  { id: uuid(), link: "/useref-hook", menuName: "useRef()" },
+
+  { id: uuid(), link: "/react-memo", menuName: "React.memo" },
+
+  { id: uuid(), link: "/usecallback-hook", menuName: "useCallback()" },
+  {
+    id: uuid(),
+    link: "/reactmemo-usecallback",
+    menuName: "React.Memo & useCallback()",
+  },
+  { id: uuid(), link: "/usememo-hook", menuName: "useMemo()" },
+
+  { id: uuid(), link: "/usecounter-hook", menuName: "useCounter()" },
 ];

@@ -1,36 +1,41 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Button, Form } from 'react-bootstrap'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
+    const navigate = useNavigate()
+    const handleLogin = () => {
+        localStorage.setItem("login", true)
+        navigate("/")
+    }
     return (
         <div className="card">
             <div className="card-header">Signin</div>
             <div className="card-body">
-                <form action="" method="">
-                    <div className="form-group mb-3 row">
-                        <label for="email_address" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                        <div className="col-md-6">
-                            <input type="text" id="email_address" className="form-control" name="email-address" required autofocus />
-                        </div>
-                    </div>
+                <Form action="" method="">
+                    <Form.Group className="mb-3" controlId="email">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="name@example.com" defaultValue="demo@gmail.com" required />
+                    </Form.Group>
 
-                    <div className="form-group mb-3  row">
-                        <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
-                        <div className="col-md-6">
-                            <input type="password" id="password" className="form-control" name="password" required />
-                        </div>
-                    </div>
+
+                    <Form.Group className="mb-3" controlId="password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="password" defaultValue="password" required />
+                    </Form.Group>
+
+
 
                     <div className="col-md-6 offset-md-4">
-                        <NavLink to="/" className="btn btn-primary">
+                        <Button onClick={handleLogin} className="btn btn-primary">
                             Signin
-                        </NavLink>
+                        </Button>
                         <NavLink to="/auth/signup" className="btn btn-link d-block">
                             Signup
                         </NavLink>
 
                     </div>
-                </form>
+                </Form>
             </div>
         </div>
     )

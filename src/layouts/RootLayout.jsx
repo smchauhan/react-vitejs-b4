@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
-import { FormsData, InteractiveCompData, NonInteractiveCompData, SidebarLinksData } from '../data/SidebarLinksData'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { FormsData, InteractiveCompData, NonInteractiveCompData, SidebarLinksData, HooksData } from '../data/SidebarLinksData'
 import { Accordion, Badge, Button, Col, Container, ListGroup, Row, Stack } from 'react-bootstrap'
 import { ArrowRight, Moon, Sun } from 'react-bootstrap-icons'
+import ScrollToTop from '../components/ScrollToTop'
 
 const RootLayout = () => {
+    const navigate = useNavigate()
     const [darkMode, setDarkMode] = useState(false)
 
     useEffect(() => {
@@ -12,8 +14,15 @@ const RootLayout = () => {
         htmlElement.setAttribute('data-bs-theme', darkMode ? "dark" : 'light')
     }, [darkMode])
 
+
     //  useEffect it will be executed on comp. load
     //  it will be executed everytime when give var./state is changed
+
+
+    const handleLogout = () => {
+        localStorage.setItem("login", false)
+        navigate("/auth/signin")
+    }
     return (
         <Container fluid >
 
@@ -120,13 +129,31 @@ const RootLayout = () => {
                                         </Accordion.Body>
                                     </Accordion.Item>
 
+                                    <Accordion.Item eventKey="4">
+                                        <Accordion.Header>Hooks</Accordion.Header>
+                                        <Accordion.Body>
+                                            <ListGroup>
+                                                {HooksData.map((menu) => {
+                                                    return (
+                                                        <ListGroup.Item key={menu.id}>
+                                                            <ArrowRight />{' '}
+                                                            <NavLink to={menu.link} >{menu.menuName}</NavLink>
+                                                        </ListGroup.Item>
+                                                    )
+                                                })}
+                                            </ListGroup>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+
+
+
                                 </Accordion>
 
 
 
 
                                 <hr />
-                                <Link to='/auth/signin' >Logout</Link><br />
+                                <Button onClick={handleLogout} variant='link' >Logout</Button><br />
                             </div>
                         </div>
                     </div>
@@ -140,6 +167,7 @@ const RootLayout = () => {
                     </div>
                 </Row>
             </Container>
+            <ScrollToTop />
         </Container>
     )
 }
