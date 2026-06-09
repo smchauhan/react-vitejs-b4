@@ -39,6 +39,8 @@ import UseMemoHook from "../pages/hooks/UseMemoHook"
 import UseCounterHook from "../pages/hooks/UseCounterHook"
 import Products from "../pages/Products"
 import Profile from "../pages/profile/Profile"
+import FormsLayout from "../layouts/FormsLayout"
+import Wishlist from "../pages/Wishlist"
 
 export const router = createBrowserRouter(
     [
@@ -50,6 +52,29 @@ export const router = createBrowserRouter(
         {
             element: <RootLayout />,
             children: [
+                {
+                    path: "/forms",
+                    element: <FormsLayout />,
+                    children: [
+                        {
+                            element: <ProtectedRoutes />,
+                            children: [
+                                { path: "rb-formcontrols", element: <FormControls /> },
+                                { path: "rb-formik-validation", element: <FormikValidation /> },
+                                { path: "rb-html5-validation", element: <HTML5Validation /> },
+                                { path: "rhf-basic", element: <RHFBasic /> },
+                                { path: "rhf-yup", element: <RHFYup /> },
+                            ]
+                        },
+                        // { path: "rb-formcontrols", element: <FormControls /> },
+                        // { path: "rb-formik-validation", element: <FormikValidation /> },
+                        // { path: "rb-html5-validation", element: <HTML5Validation /> },
+                        // { path: "rhf-basic", element: <RHFBasic /> },
+                        // { path: "rhf-yup", element: <RHFYup /> },
+                    ]
+                },
+
+
                 { path: "/", element: <Home /> },
                 { path: "/about", element: <About /> },
                 { path: "/static-profile-card", element: <StaticProfileCard /> },
@@ -75,16 +100,9 @@ export const router = createBrowserRouter(
                 { path: "/rbnavbar-offcanvas", element: <RBNavbarOffcanvas /> },
                 { path: "/rbnav-tabs", element: <RBNavTabs /> },
 
-                {
-                    element: <ProtectedRoutes />,
-                    children: [
-                        { path: "/rb-formcontrols", element: <FormControls /> },
-                        { path: "/rb-formik-validation", element: <FormikValidation /> },
-                        { path: "/rb-html5-validation", element: <HTML5Validation /> },
-                        { path: "/rhf-basic", element: <RHFBasic /> },
-                        { path: "/rhf-yup", element: <RHFYup /> },
-                    ]
-                },
+
+
+
 
 
                 { path: "/blog", element: <BlogListing /> },
@@ -104,6 +122,7 @@ export const router = createBrowserRouter(
                 { path: "/products/:category", element: <Products /> },
 
                 { path: "/profile", element: <Profile /> },
+                { path: "/wishlist", element: <Wishlist /> },
 
             ]
         },

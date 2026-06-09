@@ -1,13 +1,14 @@
 import { RouterProvider } from "react-router-dom"
 import { router } from "./routes/MainRoutes"
-import { UserContext } from "./context/Context"
-import { useState } from "react"
+import UserProvider from "./context/providers/UserProvider"
+import WishlistProvider from "./context/providers/WishlistProvider"
 function App() {
-  const [username, setUsername] = useState("Amit")
   return (
-    <UserContext.Provider value={{ username, setUsername }}>
-      <RouterProvider router={router} />
-    </UserContext.Provider>
+    <UserProvider>
+      <WishlistProvider>
+        <RouterProvider router={router} />
+      </WishlistProvider>
+    </UserProvider>
   )
 }
 export default App

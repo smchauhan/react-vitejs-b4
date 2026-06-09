@@ -35,11 +35,19 @@ export const InteractiveCompData = [
 ];
 
 export const FormsData = [
-  { id: uuid(), link: "/rb-formcontrols", menuName: "Form Controls" },
-  { id: uuid(), link: "/rb-html5-validation", menuName: "HTML5 Validation" },
-  { id: uuid(), link: "/rb-formik-validation", menuName: "Formik Validation" },
-  { id: uuid(), link: "/rhf-basic", menuName: "RHF Basic " },
-  { id: uuid(), link: "/rhf-yup", menuName: "RHF Yup " },
+  { id: uuid(), link: "/forms/rb-formcontrols", menuName: "Form Controls" },
+  {
+    id: uuid(),
+    link: "/forms/rb-html5-validation",
+    menuName: "HTML5 Validation",
+  },
+  {
+    id: uuid(),
+    link: "/forms/rb-formik-validation",
+    menuName: "Formik Validation",
+  },
+  { id: uuid(), link: "/forms/rhf-basic", menuName: "RHF Basic " },
+  { id: uuid(), link: "/forms/rhf-yup", menuName: "RHF Yup " },
 ];
 
 export const HooksData = [

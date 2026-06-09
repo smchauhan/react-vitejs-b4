@@ -3,6 +3,8 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Row, Spinner } from 'react-bootstrap'
 import { api, getAllProducts, getProductsByCategory } from '../api/Services'
 import { useLocation, useParams } from 'react-router-dom'
+import AddToWishlist from '../components/AddToWishlist'
+import { ToastContainer } from 'react-toastify';
 
 const Products = () => {
     const param = useParams()
@@ -63,7 +65,7 @@ const Products = () => {
                                                     </Card.Body>
                                                     <Card.Footer className='d-flex justify-content-between'>
                                                         <Button size='sm' variant='outline-success'>Add To Cart</Button>
-                                                        <Button size='sm' variant='outline-primary'>Add To Wishlist</Button>
+                                                        <AddToWishlist product={product} />
                                                     </Card.Footer>
                                                 </Card>
                                             </Col>
@@ -76,7 +78,7 @@ const Products = () => {
                     }
                 </Row>
             </Container>
-
+            <ToastContainer />
         </div>
     )
 }

@@ -5,11 +5,13 @@ import { Accordion, Badge, Button, Col, Container, ListGroup, Row, Stack } from 
 import { ArrowRight, Moon, Sun } from 'react-bootstrap-icons'
 import ScrollToTop from '../components/ScrollToTop'
 import { getAllCategories } from '../api/Services'
-import { UserContext } from '../context/Context'
+import { UserContext, WishlistContext } from '../context/Context'
 
 const RootLayout = () => {
     const navigate = useNavigate()
     const [darkMode, setDarkMode] = useState(false)
+    const { wishlistState } = useContext(WishlistContext)
+
 
     useEffect(() => {
         const htmlElement = document.querySelector("html")
@@ -57,6 +59,11 @@ const RootLayout = () => {
                     <Col md={8} className='text-end'>
                         Welcome {username} {' '}
                         <NavLink to="/profile">Profile</NavLink>{' '}
+
+                        <NavLink to="/wishlist" className="mx-2" >
+                            Wishlist <Badge>{wishlistState?.wishlistItems?.length}</Badge>
+                        </NavLink>
+
                         <Badge onClick={() => setDarkMode(!darkMode)} className='rounded-5 p-2' role='button'>
                             {darkMode ? <Moon /> : <Sun />}
                         </Badge>
@@ -138,14 +145,20 @@ const RootLayout = () => {
                                         <Accordion.Header>Forms</Accordion.Header>
                                         <Accordion.Body>
                                             <ListGroup>
-                                                {FormsData.map((menu) => {
+
+
+                                                <ListGroup.Item >
+                                                    <ArrowRight />{' '}
+                                                    <NavLink to="/forms/rb-formcontrols" >Forms</NavLink>
+                                                </ListGroup.Item>
+                                                {/* {FormsData.map((menu) => {
                                                     return (
                                                         <ListGroup.Item key={menu.id}>
                                                             <ArrowRight />{' '}
                                                             <NavLink to={menu.link} >{menu.menuName}</NavLink>
                                                         </ListGroup.Item>
                                                     )
-                                                })}
+                                                })} */}
                                             </ListGroup>
                                         </Accordion.Body>
                                     </Accordion.Item>
