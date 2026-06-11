@@ -9,7 +9,7 @@ import { Trash } from 'react-bootstrap-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromWishlist } from '../store/slices/wishlistSlice'
 
-const Wishlist = () => {
+const ShoppingCart = () => {
     // Context API
     //const { wishlistState, wishlistDispatch } = useContext(WishlistContext)
 
@@ -18,7 +18,7 @@ const Wishlist = () => {
     const dispatch = useDispatch()
     return (
         <div>
-            <h3>Wishlist</h3>
+            <h3>Shopping Cart</h3>
             <hr />
             {/* <pre>{JSON.stringify(wishlistItems, null, 2)}</pre> */}
             <Table >
@@ -61,4 +61,4 @@ const Wishlist = () => {
     )
 }
 
-export default Wishlist
+export default ShoppingCart

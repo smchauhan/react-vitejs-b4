@@ -41,6 +41,7 @@ import Products from "../pages/Products"
 import Profile from "../pages/profile/Profile"
 import FormsLayout from "../layouts/FormsLayout"
 import Wishlist from "../pages/Wishlist"
+import ShoppingCart from "../pages/ShoppingCart"
 
 export const router = createBrowserRouter(
     [
@@ -123,6 +124,8 @@ export const router = createBrowserRouter(
 
                 { path: "/profile", element: <Profile /> },
                 { path: "/wishlist", element: <Wishlist /> },
+                { path: "/cart", element: <ShoppingCart /> },
+
 
             ]
         },

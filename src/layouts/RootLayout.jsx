@@ -6,12 +6,17 @@ import { ArrowRight, Moon, Sun } from 'react-bootstrap-icons'
 import ScrollToTop from '../components/ScrollToTop'
 import { getAllCategories } from '../api/Services'
 import { UserContext, WishlistContext } from '../context/Context'
+import { useSelector } from 'react-redux'
 
 const RootLayout = () => {
     const navigate = useNavigate()
     const [darkMode, setDarkMode] = useState(false)
-    const { wishlistState } = useContext(WishlistContext)
 
+    // Context API
+    //const { wishlistState } = useContext(WishlistContext)
+
+    // Redux Store
+    const { wishlistItems } = useSelector((state) => state.wishlist)
 
     useEffect(() => {
         const htmlElement = document.querySelector("html")
@@ -60,8 +65,12 @@ const RootLayout = () => {
                         Welcome {username} {' '}
                         <NavLink to="/profile">Profile</NavLink>{' '}
 
+                        <NavLink to="/cart" className="mx-2" >
+                            Shopping Cart <Badge>{wishlistItems?.length}</Badge>
+                        </NavLink>
+
                         <NavLink to="/wishlist" className="mx-2" >
-                            Wishlist <Badge>{wishlistState?.wishlistItems?.length}</Badge>
+                            Wishlist <Badge>{wishlistItems?.length}</Badge>
                         </NavLink>
 
                         <Badge onClick={() => setDarkMode(!darkMode)} className='rounded-5 p-2' role='button'>
