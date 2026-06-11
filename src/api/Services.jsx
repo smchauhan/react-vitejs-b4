@@ -20,3 +20,36 @@ export const getProductsByCategory = async (slug) => {
     return response
 }
 
+
+// Mockapi 
+export const mockApi = axios.create({
+    baseURL: import.meta.env.VITE_MOCK_API_URL
+})
+
+export const registerUser = async (data) => {
+    const response = await mockApi.post('/users', data)
+    return response
+}
+
+export const authUser = async (data) => {
+    const response = await mockApi.get('/users?email=' + data.email)
+    return response
+}
+
+
+export const getUserByID = async (id) => {
+    const response = await mockApi.get('/users/' + id)
+    return response
+}
+
+// put = modify or update record
+export const updateUser = async (data) => {
+    const response = await mockApi.put('/users/' + data.id, data)
+    return response
+}
+
+// delete = delete or remove record
+export const deleteUser = async (id) => {
+    const response = await mockApi.delete('/users/' + id)
+    return response
+}
