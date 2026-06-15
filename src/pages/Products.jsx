@@ -5,6 +5,8 @@ import { api, getAllProducts, getProductsByCategory } from '../api/Services'
 import { useLocation, useParams } from 'react-router-dom'
 import AddToWishlist from '../components/AddToWishlist'
 import { ToastContainer } from 'react-toastify';
+import AddToCart from '../components/AddToCart'
+import { useSelector } from 'react-redux'
 
 const Products = () => {
     const param = useParams()
@@ -43,9 +45,10 @@ const Products = () => {
         //         }, 1000)
         //     );
     }, [location.pathname])
+    const cart = useSelector((state) => state.cart)
     return (
         <div><h3>Products</h3><br />
-            {/* <pre> {JSON.stringify(location, null, 2)} </pre> */}
+            {/* <pre> {JSON.stringify(cart, null, 2)} </pre> */}
             <Container>
                 <Row>
                     {loading ?
@@ -64,7 +67,7 @@ const Products = () => {
                                                         {product.title}
                                                     </Card.Body>
                                                     <Card.Footer className='d-flex justify-content-between'>
-                                                        <Button size='sm' variant='outline-success'>Add To Cart</Button>
+                                                        <AddToCart product={product} />
                                                         <AddToWishlist product={product} />
                                                     </Card.Footer>
                                                 </Card>
